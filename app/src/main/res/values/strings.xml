@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><resources><string name="app_name">Video Player</string><string name="choose_videos">בחר סרטונים</string><string name="empty_playlist">עדיין לא נבחרו סרטונים</string></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="choose_videos">הוסף מהמכשיר</string>
+    <string name="add_samples">הוסף דוגמאות</string>
+    <string name="empty_playlist">עדיין לא נבחרו סרטונים</string>
+</resources>
