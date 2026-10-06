@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
     private val videos = mutableListOf<VideoEntry>()
     private var fullscreen = false
     private var rotationMode = 0
+    private var currentScreen = Screen.HOME
+
+    private enum class Screen { HOME, PHOTOS, VIDEOS }
 
     private val sampleVideos = listOf(
         VideoEntry("קטע 1 — זוג יחד במיטה", Uri.parse("android.resource://com.wngrlhnn.adultvideoplayer/raw/romantic_1"), "Pexels"),
@@ -45,17 +48,72 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         player = ExoPlayer.Builder(this).build()
         binding.playerView.player = player
-        binding.fullscreenButton.setOnClickListener { toggleFullscreen() }
-        binding.rotateButton.setOnClickListener { rotateScreen() }
+
         videos.addAll(sampleVideos)
-        binding.photoGallery.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.photoGallery.adapter = PhotoAdapter(charliePhotos) { showPhotoFullscreen(it) }
+
+        binding.photoGallery.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.photoGallery.adapter =
+            PhotoAdapter(charliePhotos) { showPhotoFullscreen(it) }
+
         binding.playlist.layoutManager = LinearLayoutManager(this)
         binding.playlist.adapter = VideoAdapter(videos) { play(it) }
-        refreshPlaylist()
-        if (videos.isNotEmpty()) play(0)
+
+        binding.photosOption.setOnClickListener { showScreen(Screen.PHOTOS) }
+        binding.videosOption.setOnClickListener { showScreen(Screen.VIDEOS) }
+        binding.toolbar.setNavigationOnClickListener { showScreen(Screen.HOME) }
+
+        showScreen(Screen.HOME)
+    }
+
+    private fun showScreen(screen: Screen) {
+        currentScreen = screen
+        fullscreen = false
+        window.insetsController?.show(WindowInsets.Type.systemBars())
+
+        when (screen) {
+            Screen.HOME -> {
+                binding.homeScreen.visibility = View.VISIBLE
+                binding.contentScreen.visibility = View.GONE
+                player.pause()
+            }
+
+            Screen.PHOTOS -> {
+                binding.homeScreen.visibility = View.GONE
+                binding.contentScreen.visibility = View.VISIBLE
+                binding.toolbar.visibility = View.VISIBLE
+                binding.toolbar.title = "Charlie Hunnam — תמונות"
+                binding.toolbar.setNavigationIcon(android.R.drawable.ic_menu_revert)
+
+                binding.videoSection.visibility = View.GONE
+                binding.emptyText.visibility = View.GONE
+                binding.photoTitle.visibility = View.VISIBLE
+                binding.photoGallery.visibility = View.VISIBLE
+                binding.playlist.visibility = View.GONE
+                player.pause()
+            }
+
+            Screen.VIDEOS -> {
+                binding.homeScreen.visibility = View.GONE
+                binding.contentScreen.visibility = View.VISIBLE
+                binding.toolbar.visibility = View.VISIBLE
+                binding.toolbar.title = "Charlie Hunnam — סרטונים"
+                binding.toolbar.setNavigationIcon(android.R.drawable.ic_menu_revert)
+
+                binding.videoSection.visibility = View.VISIBLE
+                binding.emptyText.visibility = if (videos.isEmpty()) View.VISIBLE else View.GONE
+                binding.photoTitle.visibility = View.GONE
+                binding.photoGallery.visibility = View.GONE
+                binding.playlist.visibility = View.VISIBLE
+
+                if (videos.isNotEmpty() && player.currentMediaItem == null) {
+                    play(0)
+                }
+            }
+        }
     }
 
     private fun play(index: Int) {
@@ -68,20 +126,32 @@ class MainActivity : AppCompatActivity() {
     private fun rotateScreen() {
         rotationMode = (rotationMode + 1) % 3
         when (rotationMode) {
-            0 -> { requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED; binding.rotateButton.text = "↻ אוטו" }
-            1 -> { requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT; binding.rotateButton.text = "↕ לאורך" }
-            else -> { requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE; binding.rotateButton.text = "↔ לרוחב" }
+            0 -> {
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                binding.rotateButton.text = "↻ אוטו"
+            }
+            1 -> {
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                binding.rotateButton.text = "↕ לאורך"
+            }
+            else -> {
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                binding.rotateButton.text = "↔ לרוחב"
+            }
         }
     }
 
     private fun toggleFullscreen() {
         fullscreen = !fullscreen
         val visible = if (fullscreen) View.GONE else View.VISIBLE
+
         binding.toolbar.visibility = visible
-        binding.emptyText.visibility = if (fullscreen) View.GONE else if (videos.isEmpty()) View.VISIBLE else View.GONE
+        binding.emptyText.visibility =
+            if (fullscreen) View.GONE else if (videos.isEmpty()) View.VISIBLE else View.GONE
         binding.photoTitle.visibility = visible
         binding.photoGallery.visibility = visible
         binding.playlist.visibility = visible
+
         if (fullscreen) {
             window.insetsController?.hide(WindowInsets.Type.systemBars())
         } else {
@@ -107,13 +177,24 @@ class MainActivity : AppCompatActivity() {
                 decorView.systemUiVisibility = 5894
             }
         }
-        Glide.with(this).load(url).error(android.R.drawable.ic_menu_report_image).fitCenter().into(image)
+        Glide.with(this).load(url)
+            .error(android.R.drawable.ic_menu_report_image)
+            .fitCenter()
+            .into(image)
         dialog.show()
     }
 
-    private fun refreshPlaylist() {
-        binding.playlist.adapter?.notifyDataSetChanged()
-        binding.emptyText.visibility = if (videos.isEmpty()) View.VISIBLE else View.GONE
+    @Deprecated("Use the back dispatcher for newer Android versions")
+    override fun onBackPressed() {
+        if (fullscreen) {
+            toggleFullscreen()
+            return
+        }
+        if (currentScreen != Screen.HOME) {
+            showScreen(Screen.HOME)
+            return
+        }
+        super.onBackPressed()
     }
 
     override fun onDestroy() {
