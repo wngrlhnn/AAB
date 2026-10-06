@@ -10,15 +10,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
+
+      - name: Download bundled media
+        run: |
+          set -euo pipefail
+          mkdir -p app/src/main/res/raw app/src/main/res/drawable
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://videos.pexels.com/video-files/5928797/5928797-uhd_4096_2160_25fps.mp4" -o app/src/main/res/raw/romantic_1.mp4
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://videos.pexels.com/video-files/5928084/5928084-uhd_2160_4096_25fps.mp4" -o app/src/main/res/raw/romantic_2.mp4
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://videos.pexels.com/video-files/13771336/13771336-uhd_2160_3840_24fps.mp4" -o app/src/main/res/raw/romantic_3.mp4
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://videos.pexels.com/video-files/6626318/6626318-uhd_2160_3840_25fps.mp4" -o app/src/main/res/raw/romantic_4.mp4
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_4.jpg?width=960" -o app/src/main/res/drawable/charlie_1.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611323745%29.jpg?width=960" -o app/src/main/res/drawable/charlie_2.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394110%29.jpg?width=960" -o app/src/main/res/drawable/charlie_3.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984665242%29.jpg?width=960" -o app/src/main/res/drawable/charlie_4.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984100085%29.jpg?width=960" -o app/src/main/res/drawable/charlie_5.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%284843187578%29.jpg?width=960" -o app/src/main/res/drawable/charlie_6.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394704%29.jpg?width=960" -o app/src/main/res/drawable/charlie_7.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607406070%29.jpg?width=960" -o app/src/main/res/drawable/charlie_8.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611295255%29.jpg?width=960" -o app/src/main/res/drawable/charlie_9.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960" -o app/src/main/res/drawable/charlie_10.jpg
+
       - name: Build installable debug APK
         run: gradle assembleDebug
+
       - uses: actions/upload-artifact@v4
         with:
           name: android-installable-apk
