@@ -32,7 +32,13 @@ class MainActivity : AppCompatActivity() {
         "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_1",
         "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_2",
         "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_3",
-        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_4"
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_4",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_5",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_6",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_7",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_8",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_9",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_10"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
