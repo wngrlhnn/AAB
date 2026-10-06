@@ -25,6 +25,10 @@ val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
         }
     }
 }
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     namespace = "com.wngrlhnn.adultvideoplayer"
     compileSdk = 36
@@ -36,6 +40,10 @@ android {
         versionName = "1.2"
     }
     buildFeatures { viewBinding = true }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 tasks.named("preBuild") { dependsOn(downloadOfflineVideos) }
 dependencies {
