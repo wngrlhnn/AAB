@@ -16,7 +16,13 @@ val offlinePhotos = mapOf(
     "charlie_1.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_4.jpg?width=960",
     "charlie_2.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611323745%29.jpg?width=960",
     "charlie_3.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394110%29.jpg?width=960",
-    "charlie_4.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984665242%29.jpg?width=960"
+    "charlie_4.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984665242%29.jpg?width=960",
+    "charlie_5.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984100085%29.jpg?width=960",
+    "charlie_6.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%284843187578%29.jpg?width=960",
+    "charlie_7.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394704%29.jpg?width=960",
+    "charlie_8.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607406070%29.jpg?width=960",
+    "charlie_9.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611295255%29.jpg?width=960",
+    "charlie_10.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960"
 )
 
 val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
