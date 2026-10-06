@@ -27,5 +27,5 @@ jobs:
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: GIF-Vault-AAB
+          name: Neon-Drift-AAB
           path: app/build/outputs/bundle/release/app-release.aab
