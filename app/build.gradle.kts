@@ -1,3 +1,4 @@
+import java.net.HttpURLConnection
 import java.net.URI
 
 plugins {
@@ -25,6 +26,22 @@ val offlinePhotos = mapOf(
     "charlie_10.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960"
 )
 
+fun downloadFile(url: String, target: java.io.File) {
+    val connection = URI(url).toURL().openConnection() as HttpURLConnection
+    connection.setRequestProperty("User-Agent", "Mozilla/5.0 (AndroidOfflineApp/1.5)")
+    connection.connectTimeout = 30_000
+    connection.readTimeout = 60_000
+    connection.instanceFollowRedirects = true
+    connection.connect()
+    if (connection.responseCode !in 200..299) {
+        throw java.io.IOException("HTTP ${connection.responseCode} for $url")
+    }
+    connection.inputStream.use { input ->
+        target.outputStream().use { output -> input.copyTo(output) }
+    }
+    connection.disconnect()
+}
+
 val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
     outputs.files(offlineVideos.keys.map { file("src/main/res/raw/$it") })
     doLast {
@@ -32,11 +49,7 @@ val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
         rawDir.mkdirs()
         offlineVideos.forEach { (name, url) ->
             val target = file("src/main/res/raw/$name")
-            if (!target.exists() || target.length() == 0L) {
-                URI(url).toURL().openStream().use { input ->
-                    target.outputStream().use { output -> input.copyTo(output) }
-                }
-            }
+            if (!target.exists() || target.length() == 0L) downloadFile(url, target)
         }
     }
 }
@@ -48,11 +61,7 @@ val downloadOfflinePhotos = tasks.register("downloadOfflinePhotos") {
         drawableDir.mkdirs()
         offlinePhotos.forEach { (name, url) ->
             val target = file("src/main/res/drawable/$name")
-            if (!target.exists() || target.length() == 0L) {
-                URI(url).toURL().openStream().use { input ->
-                    target.outputStream().use { output -> input.copyTo(output) }
-                }
-            }
+            if (!target.exists() || target.length() == 0L) downloadFile(url, target)
         }
     }
 }
