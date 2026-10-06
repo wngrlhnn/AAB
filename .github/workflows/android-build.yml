@@ -19,11 +19,7 @@ jobs:
           gradle-version: '8.13'
       - name: Build release APK
         run: gradle assembleRelease
-      - name: Build AAB
-        run: gradle bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: android-release
-          path: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/bundle/release/*.aab
+          name: android-release-apk
+          path: app/build/outputs/apk/release/*.apk
