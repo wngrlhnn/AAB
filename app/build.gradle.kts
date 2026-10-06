@@ -11,10 +11,19 @@ val offlineVideos = mapOf(
     "romantic_3.mp4" to "https://videos.pexels.com/video-files/13771336/13771336-uhd_2160_3840_24fps.mp4",
     "romantic_4.mp4" to "https://videos.pexels.com/video-files/6626318/6626318-uhd_2160_3840_25fps.mp4"
 )
+
+val offlinePhotos = mapOf(
+    "charlie_1.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_4.jpg?width=960",
+    "charlie_2.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611323745%29.jpg?width=960",
+    "charlie_3.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394110%29.jpg?width=960",
+    "charlie_4.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%285984665242%29.jpg?width=960"
+)
+
 val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
     outputs.files(offlineVideos.keys.map { file("src/main/res/raw/$it") })
     doLast {
-        val rawDir = file("src/main/res/raw"); rawDir.mkdirs()
+        val rawDir = file("src/main/res/raw")
+        rawDir.mkdirs()
         offlineVideos.forEach { (name, url) ->
             val target = file("src/main/res/raw/$name")
             if (!target.exists() || target.length() == 0L) {
@@ -25,6 +34,23 @@ val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
         }
     }
 }
+
+val downloadOfflinePhotos = tasks.register("downloadOfflinePhotos") {
+    outputs.files(offlinePhotos.keys.map { file("src/main/res/drawable/$it") })
+    doLast {
+        val drawableDir = file("src/main/res/drawable")
+        drawableDir.mkdirs()
+        offlinePhotos.forEach { (name, url) ->
+            val target = file("src/main/res/drawable/$name")
+            if (!target.exists() || target.length() == 0L) {
+                URI(url).toURL().openStream().use { input ->
+                    target.outputStream().use { output -> input.copyTo(output) }
+                }
+            }
+        }
+    }
+}
+
 kotlin { jvmToolchain(17) }
 
 android {
@@ -34,8 +60,8 @@ android {
         applicationId = "com.wngrlhnn.adultvideoplayer"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "1.4"
+        versionCode = 6
+        versionName = "1.5"
     }
     buildFeatures { viewBinding = true }
     compileOptions {
@@ -43,7 +69,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
-tasks.named("preBuild") { dependsOn(downloadOfflineVideos) }
+
+tasks.named("preBuild") {
+    dependsOn(downloadOfflineVideos)
+    dependsOn(downloadOfflinePhotos)
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.activity:activity-ktx:1.11.0")
