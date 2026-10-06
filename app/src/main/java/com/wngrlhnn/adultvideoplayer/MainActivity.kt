@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.wngrlhnn.adultvideoplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,14 +20,26 @@ class MainActivity : AppCompatActivity() {
         VideoEntry("קטע 4 — נשיקה במרפסת", Uri.parse("android.resource://com.wngrlhnn.adultvideoplayer/raw/romantic_4"), "Pexels")
     )
 
+    private val charliePhotos = listOf(
+        "https://upload.wikimedia.org/wikipedia/commons/1/10/Charlie_Hunnam_by_Gage_Skidmore_4.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6a/Charlie_Hunnam_%2828611323745%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/2/2e/Charlie_Hunnam_%287607394110%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/5/51/Charlie_Hunnam_%285984665242%29.jpg"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         player = ExoPlayer.Builder(this).build()
         binding.playerView.player = player
+
         videos.addAll(sampleVideos)
-        binding.playlist.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.photoGallery.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.photoGallery.adapter = PhotoAdapter(charliePhotos)
+
+        binding.playlist.layoutManager = LinearLayoutManager(this)
         binding.playlist.adapter = VideoAdapter(videos) { index -> play(index) }
         refreshPlaylist()
         if (videos.isNotEmpty()) play(0)
@@ -41,7 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshPlaylist() {
         binding.playlist.adapter?.notifyDataSetChanged()
-        binding.emptyText.visibility = if (videos.isEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+        binding.emptyText.visibility =
+            if (videos.isEmpty()) android.view.View.VISIBLE else android.view.View.GONE
     }
 
     override fun onDestroy() {
