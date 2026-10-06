@@ -398,7 +398,7 @@ private fun NeonBackdrop(pulse: Float) {
     }
 }
 
-private fun drawGameBackground(stars:List<Star>, t:Float) {
+private fun DrawScope.drawGameBackground(stars:List<Star>, t:Float) {
     drawRect(Brush.verticalGradient(listOf(Color(0xFF03050C),Color(0xFF0A0C1B),Color(0xFF03040A))))
     stars.forEach { drawCircle(Color(0xFFBDEFFF).copy(alpha=it.alpha), it.size, Offset(it.x*size.width,it.y*size.height)) }
     val horizon=size.height*.72f
@@ -409,7 +409,7 @@ private fun drawGameBackground(stars:List<Star>, t:Float) {
     }
 }
 
-private fun drawShip(nx:Float,ny:Float,s:Size,t:Float) {
+private fun DrawScope.drawShip(nx:Float,ny:Float,s:Size,t:Float) {
     val x=nx*s.width; val y=ny*s.height
     val flame=22f+sin(t*12f)*5f
     drawCircle(Color(0xFF61F6FF).copy(alpha=.16f), 30f, Offset(x,y+15f))
@@ -422,7 +422,7 @@ private fun drawShip(nx:Float,ny:Float,s:Size,t:Float) {
     drawLine(Color(0xFF61F6FF).copy(alpha=.8f), Offset(x+9f,y+19f), Offset(x+12f,y+19f+flame), 3f)
 }
 
-private fun drawRock(r:Rock,s:Size) {
+private fun DrawScope.drawRock(r:Rock,s:Size) {
     val x=r.x*s.width; val y=r.y*s.height; val rr=r.r*s.minDimension
     rotate(r.rotation,Offset(x,y)) {
         val p=Path()
@@ -439,7 +439,7 @@ private fun drawRock(r:Rock,s:Size) {
     }
 }
 
-private fun drawOrb(o:Orb,s:Size) {
+private fun DrawScope.drawOrb(o:Orb,s:Size) {
     val x=o.x*s.width; val y=o.y*s.height; val pulse=1f+sin(o.phase)*.14f
     val c=when(o.type){OrbType.ENERGY->Color(0xFF61F6FF);OrbType.SHIELD->Color(0xFFB98CFF);OrbType.MULTIPLIER->Color(0xFFFFD166)}
     drawCircle(c.copy(alpha=.10f),o.r*s.minDimension*2.2f*pulse,Offset(x,y))
@@ -448,13 +448,13 @@ private fun drawOrb(o:Orb,s:Size) {
     drawCircle(Color.White.copy(alpha=.8f),o.r*s.minDimension*.16f,Offset(x-o.r*s.minDimension*.18f,y-o.r*s.minDimension*.18f))
 }
 
-private fun drawBullet(b:Bullet,s:Size) {
+private fun DrawScope.drawBullet(b:Bullet,s:Size) {
     val x=b.x*s.width; val y=b.y*s.height
     drawLine(Color(0xFF61F6FF).copy(alpha=.18f),Offset(x,y+20f),Offset(x,y-8f),8f)
     drawLine(Color(0xFFE9FFFF),Offset(x,y+8f),Offset(x,y-8f),2.5f)
 }
 
-private fun drawParticle(p:Particle,s:Size) {
+private fun DrawScope.drawParticle(p:Particle,s:Size) {
     val a=(p.life/p.maxLife).coerceIn(0f,1f)
     drawCircle(Color(0xFF61F6FF).copy(alpha=a*.8f),p.size*a,Offset(p.x*s.width,p.y*s.height))
 }
