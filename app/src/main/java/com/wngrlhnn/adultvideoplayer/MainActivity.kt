@@ -21,25 +21,12 @@ class MainActivity : AppCompatActivity() {
         VideoEntry("דוגמה 4 — נשיקה במרפסת", Uri.parse("https://videos.pexels.com/video-files/9500161/9500161-uhd_4096_2160_25fps.mp4"), "Pexels")
     )
 
-    private val pickVideos = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
-        uris.forEach { uri ->
-            if (videos.none { it.uri == uri }) {
-                try { contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: Exception) {}
-                val localNumber = videos.count { it.source == "local" } + 1
-                videos.add(VideoEntry("הסרטון שלי $localNumber", uri))
-            }
-        }
-        refreshPlaylist()
-        if (videos.isNotEmpty() && player.currentMediaItem == null) play(0)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         player = ExoPlayer.Builder(this).build()
         binding.playerView.player = player
-        binding.addVideos.setOnClickListener { pickVideos.launch(arrayOf("video/*")) }
         binding.addSamples.setOnClickListener {
             val existing = videos.map { it.uri }.toSet()
             sampleVideos.filter { it.uri !in existing }.forEach { videos.add(it) }
