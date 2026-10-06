@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
     )
 
     private val charliePhotos = listOf(
-        "https://upload.wikimedia.org/wikipedia/commons/1/10/Charlie_Hunnam_by_Gage_Skidmore_4.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/6/6a/Charlie_Hunnam_%2828611323745%29.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/2/2e/Charlie_Hunnam_%287607394110%29.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/5/51/Charlie_Hunnam_%285984665242%29.jpg"
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_1",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_2",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_3",
+        "android.resource://com.wngrlhnn.adultvideoplayer/drawable/charlie_4"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
