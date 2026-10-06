@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
 
         player = ExoPlayer.Builder(this).build()
         binding.playerView.player = player
+        binding.fullscreenButton.setOnClickListener { toggleFullscreen() }
+        binding.rotateButton.setOnClickListener { rotateScreen() }
 
         videos.addAll(sampleVideos)
 
