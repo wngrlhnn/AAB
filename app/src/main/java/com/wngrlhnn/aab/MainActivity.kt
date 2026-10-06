@@ -133,7 +133,7 @@ private fun DrawScope.backdrop(i:Float){
 }
 private fun DrawScope.drawStars(s:List<Star>){s.forEach{drawCircle(Color.White.copy(alpha=(.25f+it.r/5f).coerceAtMost(.8f)),it.r,Offset(it.x*size.width,it.y*size.height))}}
 private fun DrawScope.orb(o:Orb){
- val c=if(o.type==0)Color(0xFF62F5FF)else Color(0xFFFFC857);val x=o.x*size.width;val y=o.y*size.height;val p=1+sin(o.pulse)*.18f
+ val c=if(o.type==0)Color(0xFF62F5FF)else Color(0xFFFFC857);val x=o.x*size.width;val y=o.y*size.height;val p=1f+sin(o.pulse).toFloat()*.18f
  drawCircle(c.copy(alpha=.12f),25*p,Offset(x,y));drawCircle(c.copy(alpha=.25f),14*p,Offset(x,y));drawCircle(c,5*p,Offset(x,y));drawCircle(Color.White.copy(alpha=.8f),2f,Offset(x-1,y-2))
 }
 private fun DrawScope.rock(r:Rock){
