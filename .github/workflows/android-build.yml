@@ -38,6 +38,9 @@ jobs:
           curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607406070%29.jpg?width=960" -o app/src/main/res/drawable/charlie_8.jpg
           curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611295255%29.jpg?width=960" -o app/src/main/res/drawable/charlie_9.jpg
           curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960" -o app/src/main/res/drawable/charlie_10.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2853619946303%29.jpg?width=960" -o app/src/main/res/drawable/charlie_11.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%289366030952%29_%28cropped%29.jpg?width=960" -o app/src/main/res/drawable/charlie_12.jpg
+          curl -L --fail --retry 3 --retry-delay 2 -A "Mozilla/5.0" "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607396314%29.jpg?width=960" -o app/src/main/res/drawable/charlie_13.jpg
 
       - name: Build installable debug APK
         run: gradle assembleDebug
