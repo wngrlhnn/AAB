@@ -9,7 +9,7 @@ val offlineVideos = mapOf(
     "romantic_1.mp4" to "https://videos.pexels.com/video-files/5304017/5304017-uhd_4096_2160_30fps.mp4",
     "romantic_2.mp4" to "https://videos.pexels.com/video-files/8451945/8451945-uhd_2160_3840_25fps.mp4",
     "romantic_3.mp4" to "https://videos.pexels.com/video-files/6718243/6718243-uhd_4096_2160_25fps.mp4",
-    "romantic_4.mp4" to "https://videos.pexels.com/video-files/9500161/9500161-uhd_4096_2160_30fps.mp4"
+    "romantic_4.mp4" to "https://videos.pexels.com/video-files/5304017/5304017-uhd_4096_2160_30fps.mp4"
 )
 val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
     outputs.files(offlineVideos.keys.map { file("src/main/res/raw/$it") })
