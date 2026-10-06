@@ -28,6 +28,17 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="#99000000"
             android:contentDescription="מסך מלא"/>
+
+        <Button
+            android:id="@+id/rotateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="top|start"
+            android:layout_margin="12dp"
+            android:text="↻ אוטו"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#99000000"
+            android:contentDescription="סיבוב מסך"/>
     </FrameLayout>
 
     <TextView
