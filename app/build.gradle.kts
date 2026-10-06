@@ -1,3 +1,4 @@
+import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URI
 
@@ -34,7 +35,7 @@ fun downloadFile(url: String, target: java.io.File) {
     connection.instanceFollowRedirects = true
     connection.connect()
     if (connection.responseCode !in 200..299) {
-        throw java.io.IOException("HTTP ${connection.responseCode} for $url")
+        throw IOException("HTTP ${connection.responseCode} for $url")
     }
     connection.inputStream.use { input ->
         target.outputStream().use { output -> input.copyTo(output) }
