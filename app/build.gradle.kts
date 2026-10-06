@@ -24,7 +24,10 @@ val offlinePhotos = mapOf(
     "charlie_7.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607394704%29.jpg?width=960",
     "charlie_8.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607406070%29.jpg?width=960",
     "charlie_9.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2828611295255%29.jpg?width=960",
-    "charlie_10.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960"
+    "charlie_10.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_by_Gage_Skidmore_3.jpg?width=960",
+    "charlie_11.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%2853619946303%29.jpg?width=960",
+    "charlie_12.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%289366030952%29_%28cropped%29.jpg?width=960",
+    "charlie_13.jpg" to "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charlie_Hunnam_%287607396314%29.jpg?width=960"
 )
 
 fun downloadFile(url: String, target: java.io.File) {
@@ -76,8 +79,8 @@ android {
         applicationId = "com.wngrlhnn.adultvideoplayer"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.5"
+        versionCode = 7
+        versionName = "1.6"
     }
     buildFeatures { viewBinding = true }
     compileOptions {
