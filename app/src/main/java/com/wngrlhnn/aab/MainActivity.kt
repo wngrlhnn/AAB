@@ -267,7 +267,7 @@ private fun GameScreen(key: Int, best: Int, onPause: () -> Unit, onGameOver: (In
                 if (shield > 0f) shield = 0f else energy -= 28f
                 flash = 1f
                 burst(particles, shipX, shipY, 22)
-                vibrator.vibrate(VibrationEffect.createOneShot(55, 150))
+                vibrator?.vibrate(VibrationEffect.createOneShot(55, 150))
             }
 
             val collected = orbs.firstOrNull { distance(it.x,it.y,shipX,shipY) < it.r + 0.03f }
@@ -280,7 +280,7 @@ private fun GameScreen(key: Int, best: Int, onPause: () -> Unit, onGameOver: (In
                 }
                 score += 120 * multiplier
                 burst(particles, collected.x, collected.y, 16)
-                vibrator.vibrate(VibrationEffect.createOneShot(28, 90))
+                vibrator?.vibrate(VibrationEffect.createOneShot(28, 90))
             }
 
             val hitBullet = bullets.firstOrNull()
