@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#000000">
-<com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:title="Video Player" android:titleTextColor="#FFFFFF"/>
-<androidx.media3.ui.PlayerView android:id="@+id/playerView" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:keepScreenOn="true"/>
-<Button android:id="@+id/addVideos" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/choose_videos"/>
-<TextView android:id="@+id/emptyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:padding="16dp" android:text="@string/empty_playlist" android:textColor="#FFFFFF"/>
-<androidx.recyclerview.widget.RecyclerView android:id="@+id/playlist" android:layout_width="match_parent" android:layout_height="180dp" android:padding="8dp"/>
+    <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:title="Video Player" android:titleTextColor="#FFFFFF"/>
+    <androidx.media3.ui.PlayerView android:id="@+id/playerView" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:keepScreenOn="true"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/addSamples" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/add_samples"/>
+        <Button android:id="@+id/addVideos" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/choose_videos"/>
+    </LinearLayout>
+    <TextView android:id="@+id/emptyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:padding="16dp" android:text="@string/empty_playlist" android:textColor="#FFFFFF"/>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/playlist" android:layout_width="match_parent" android:layout_height="180dp" android:padding="8dp"/>
 </LinearLayout>
