@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -42,6 +43,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun GifVaultApp() {
+    val context = LocalContext.current
     var menuOpen by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf<GifItem?>(null) }
@@ -100,7 +102,7 @@ fun GifVaultApp() {
                                 .clickable { selected = gif }
                         ) {
                             AsyncImage(
-                                model = ImageRequest.Builder(this@GifVaultApp@null)
+                                model = ImageRequest.Builder(context)
                                     .data(gif.url)
                                     .crossfade(true)
                                     .build(),
