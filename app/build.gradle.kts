@@ -6,10 +6,10 @@ plugins {
 }
 
 val offlineVideos = mapOf(
-    "romantic_1.mp4" to "https://videos.pexels.com/video-files/5304017/5304017-uhd_4096_2160_30fps.mp4",
-    "romantic_2.mp4" to "https://videos.pexels.com/video-files/8451945/8451945-uhd_2160_3840_25fps.mp4",
-    "romantic_3.mp4" to "https://videos.pexels.com/video-files/6718243/6718243-uhd_4096_2160_25fps.mp4",
-    "romantic_4.mp4" to "https://videos.pexels.com/video-files/5304017/5304017-uhd_4096_2160_30fps.mp4"
+    "romantic_1.mp4" to "https://videos.pexels.com/video-files/5928797/5928797-uhd_4096_2160_25fps.mp4",
+    "romantic_2.mp4" to "https://videos.pexels.com/video-files/5928084/5928084-uhd_2160_4096_25fps.mp4",
+    "romantic_3.mp4" to "https://videos.pexels.com/video-files/13771336/13771336-uhd_2160_3840_24fps.mp4",
+    "romantic_4.mp4" to "https://videos.pexels.com/video-files/6626318/6626318-uhd_2160_3840_25fps.mp4"
 )
 val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
     outputs.files(offlineVideos.keys.map { file("src/main/res/raw/$it") })
@@ -25,9 +25,7 @@ val downloadOfflineVideos = tasks.register("downloadOfflineVideos") {
         }
     }
 }
-kotlin {
-    jvmToolchain(17)
-}
+kotlin { jvmToolchain(17) }
 
 android {
     namespace = "com.wngrlhnn.adultvideoplayer"
@@ -36,8 +34,8 @@ android {
         applicationId = "com.wngrlhnn.adultvideoplayer"
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 5
+        versionName = "1.4"
     }
     buildFeatures { viewBinding = true }
     compileOptions {
